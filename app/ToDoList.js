@@ -7,19 +7,13 @@ import {
     Text,
     ScrollView,
 } from 'react-native';
-const ToDoList = () => {
+const ToDoList = ({ tasks }) => {
     return (
         <View>
             <SafeAreaView>
                 <ScrollView>
                     <Pressable>
-                        <Task taskName={"Do Laundry"}></Task>
-                    </Pressable>
-                    <Pressable>
-                        <Task taskName={"Go to Gym"}></Task>
-                    </Pressable>
-                    <Pressable>
-                        <Task taskName={"Walk Dog"}></Task>
+                        <Task taskList={tasks}/>
                     </Pressable>
                 </ScrollView>
             </SafeAreaView>
@@ -30,10 +24,12 @@ const ToDoList = () => {
 export default ToDoList
 
 // Task child component
-const Task = ({ taskName }) => {
+const Task = ({ taskList }) => {
     return (
-        <View style={[styles.task, styles.completed]}>
-            <Text style={styles.taskText}>{taskName}</Text>
+        <View>
+            {
+                taskList.map( (task) => (<Text key={task}>{task}</Text>) )
+            }
         </View>
     );
 };
