@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, TextInput, Button, SafeAreaView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
-const ToDoForm = () => {
+const ToDoForm = ({ addTaskFunc }) => {
+
+
     return (
         <SafeAreaView>
-            <CustomForm placeholderText={"Add a new task..."} buttonText={"Add"} />
+            <CustomForm placeholderText={"Add a new task..."} buttonText={"Add"} addTaskFunc={addTaskFunc} />
         </SafeAreaView>
     );
 };
@@ -12,14 +14,26 @@ const ToDoForm = () => {
 export default ToDoForm
 
 // CustomForm child component
-const CustomForm = ({ placeholderText, buttonText }) => {
+const CustomForm = ({ placeholderText, buttonText, addTaskFunc }) => {
+
+    const [taskText, setTaskText] = useState('');
+
+    const handleAddTask = () => {
+        if(taskText) {
+            addTaskFunc(taskText);
+            setTaskText('');
+        };
+    };
+
     return (
         <View style={styles.form}>
             <TextInput
                 style={styles.input}
                 placeholder={placeholderText}
+                onChangeText={(text) => setTaskText(text)}
+                value={taskText}
             />
-            <Button title={buttonText} />
+            <Button title={buttonText} onPress={handleAddTask} />
         </View>
     );
 };

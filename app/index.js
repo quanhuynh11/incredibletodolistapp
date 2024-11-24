@@ -12,10 +12,17 @@ export default function Page() {
     'Walk dog'
   ]);
 
+  // Add new task to the list
+  const addTask = (task) => {
+    if(!tasks.includes(task.trim())) {
+      setTasks([...tasks, task]);
+    }
+  };
+
   return (
     <View>
       <ToDoList tasks={tasks}/>
-      <ToDoForm />
+      <ToDoForm addTaskFunc={addTask} />
     </View>
   );
 }
